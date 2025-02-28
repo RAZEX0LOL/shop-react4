@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+// eslint-disable-next-line react/prop-types
 const ProductCard = ({ product }) => {
 	return (
 		<div className='bg-white rounded shadow p-4'>
