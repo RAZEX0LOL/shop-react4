@@ -1,4 +1,3 @@
-// eslint-disable-next-line react/prop-types
 const Cart = ({ cartItems, onRemove }) => {
 	return (
 		<div className='p-4 bg-white shadow rounded'>

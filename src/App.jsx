@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -19,16 +19,16 @@ export default function App() {
   }
 
   return (
-    <Router>
+    <BrowserRouter>
       <Header />
       <main className='min-h-screen'>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home addToCart={addToCart} />} />
           <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
           <Route path="/cart" element={<CartPage cartItems={cartItems} removeFromCart={removeFromCart} />} />
         </Routes>
       </main>
       <Footer />
-    </Router>
+    </BrowserRouter>
   )
 }

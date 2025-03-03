@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+.text-white {
+  color: var(--color-white) !important;
+}
+
 .app-container {
   @apply max-w-7xl mx-auto p-4;
 }
