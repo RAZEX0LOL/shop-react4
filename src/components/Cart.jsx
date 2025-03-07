@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onSaveCart }) => {
 	const [discountCode, setDiscountCode] = useState('')
@@ -71,7 +72,7 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onSaveCart }) => {
 						</p>
 						{appliedDiscount > 0 && (
 							<p className='text-xl font-semibold text-green-600'>
-								Со скидкой: {discountedPrice.toFixed(2) ₽}
+								Со скидкой: {discountedPrice.toFixed(2)} ₽
 							</p>
 						)}
 					</div>
@@ -92,6 +93,11 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onSaveCart }) => {
 								Применить
 							</button>
 						</div>
+					</div>
+					<div className='mt-8 text-center'>
+						<Link to={'/checkout '} className='inline-block bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 transition-colors'>
+							Купить
+						</Link>
 					</div>
 				</>
 			)}
