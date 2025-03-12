@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onSaveCart }) => {
+const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 	const [discountCode, setDiscountCode] = useState('')
 	const [appliedDiscount, setAppliedDiscount] = useState(0)
 
@@ -21,10 +21,8 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem, onSaveCart }) => {
 
 	useEffect(() => {
 		localStorage.setItem('cartItems', JSON.stringify(cartItems))
-		if (onSaveCart) {
-			onSaveCart(cartItems)
-		}
-	}, [cartItems, onSaveCart])
+
+	}, [cartItems])
 
 	return (
 		<div className='bg-white p-6 rounded-lg shadow-lg transition-all duration-300'>

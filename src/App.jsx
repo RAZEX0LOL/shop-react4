@@ -10,7 +10,17 @@ import ProductDetail from './pages/ProductDetail'
 import PurchareHistory from "./pages/PurchareHistory"
 
 export default function App() {
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('cartItems')
+    return savedCart ? JSON.parse(savedCart) : []
+  })
+
+  // useEffect(() => {
+  //   const storedCart = localStorage.getItem('cartItems')
+  //   if (storedCart) {
+  //     setCartItems(JSON.parse(storedCart))
+  //   }
+  // })
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -25,20 +35,19 @@ export default function App() {
   }
 
   const handleUpdateQuantity = (id, newQuantity) => {
-    setCartItems((prev) => {
-      prev.map((item) => {
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      })
-    })
+    setCartItems(prev =>
+      prev.map(item => (item.id === id ? { ...item, quantity: newQuantity } : item))
+    )
   }
 
   const handleRemoveItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id))
+    setCartItems(prev => prev.filter(item => item.id !== id))
   }
 
   const clearCart = () => {
     setCartItems([])
   }
+
 
   return (
     <BrowserRouter>
@@ -48,7 +57,7 @@ export default function App() {
           <Route path="/" element={<Home addToCart={addToCart} />} />
           <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
           <Route path="/cart" element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem} />} />
-          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} clearCart={clearCart} />
+          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} clearCart={clearCart} />} />
           <Route path="/orders" element={<PurchareHistory />} />
         </Routes>
       </main>
