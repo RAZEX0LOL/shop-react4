@@ -8,6 +8,7 @@ import CheckoutPage from "./pages/CheckoutPage"
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import PurchareHistory from "./pages/PurchareHistory"
+import ThankYouPage from './pages/ThankYouPage'
 
 export default function App() {
   const [cartItems, setCartItems] = useState(() => {
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/cart" element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem} />} />
           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} clearCart={clearCart} />} />
           <Route path="/orders" element={<PurchareHistory />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
         </Routes>
       </main>
       <Footer />

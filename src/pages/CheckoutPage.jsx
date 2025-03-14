@@ -1,10 +1,10 @@
-// src/pages/CheckoutPage.jsx
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CheckoutForm from '../components/CheckoutForm'
 
 const CheckoutPage = ({ cartItems, clearCart }) => {
-	const [orderSubmitted, setOrderSubmitted] = useState(false)
 	const [orderData, setOrderData] = useState(null)
+	const navigate = useNavigate()
 
 	// Вычисляем общую стоимость корзины
 	const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -43,25 +43,13 @@ const CheckoutPage = ({ cartItems, clearCart }) => {
 			const totalFromResponse = savedOrder.total !== undefined ? savedOrder.total : finalPrice
 
 			setOrderData({ ...savedOrder, total: totalFromResponse })
-			setOrderSubmitted(true)
 			clearCart()
 			localStorage.removeItem('discountCode')
+			navigate('/thank-you', { state: { orderId: savedOrder.id, total: savedOrder.total } })
 		} catch (error) {
 			console.error('Ошибка в CheckoutPage:', error)
 			alert('Ошибка при оформлении заказа')
 		}
-	}
-
-	if (orderSubmitted && orderData) {
-		return (
-			<div className="container mx-auto p-4">
-				<div className="max-w-2xl mx-auto p-6 bg-white shadow rounded text-center">
-					<h2 className="text-2xl font-bold mb-4">Спасибо за заказ!</h2>
-					<p>Ваш заказ успешно оформлен. Мы свяжемся с вами для подтверждения доставки.</p>
-					<p className="mt-4">Общая стоимость: {Number(orderData.total).toFixed(2)} ₽</p>
-				</div>
-			</div>
-		)
 	}
 
 	return (
