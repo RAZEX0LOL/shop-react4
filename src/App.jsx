@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from "./components/Footer"
 import Header from "./components/Header"
+import { FavoritesProvider } from './context/FavoritesContext'
 import CartPage from './pages/CartPage'
 import CheckoutPage from "./pages/CheckoutPage"
+import FavoritesPage from './pages/FavoritesPage'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import PurchareHistory from "./pages/PurchareHistory"
@@ -15,13 +17,6 @@ export default function App() {
     const savedCart = localStorage.getItem('cartItems')
     return savedCart ? JSON.parse(savedCart) : []
   })
-
-  // useEffect(() => {
-  //   const storedCart = localStorage.getItem('cartItems')
-  //   if (storedCart) {
-  //     setCartItems(JSON.parse(storedCart))
-  //   }
-  // })
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -51,19 +46,22 @@ export default function App() {
 
 
   return (
-    <BrowserRouter>
-      <Header />
-      <main className='min-h-screen'>
-        <Routes>
-          <Route path="/" element={<Home addToCart={addToCart} />} />
-          <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
-          <Route path="/cart" element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem} />} />
-          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} clearCart={clearCart} />} />
-          <Route path="/orders" element={<PurchareHistory />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <FavoritesProvider>
+      <BrowserRouter>
+        <Header />
+        <main className='min-h-screen'>
+          <Routes>
+            <Route path="/" element={<Home addToCart={addToCart} />} />
+            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
+            <Route path="/cart" element={<CartPage cartItems={cartItems} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem} />} />
+            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} clearCart={clearCart} />} />
+            <Route path="/orders" element={<PurchareHistory />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </FavoritesProvider>
   )
 }

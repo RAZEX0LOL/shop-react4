@@ -1,3 +1,4 @@
+// src/pages/CheckoutPage.jsx
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CheckoutForm from '../components/CheckoutForm'
@@ -6,16 +7,12 @@ const CheckoutPage = ({ cartItems, clearCart }) => {
 	const [orderData, setOrderData] = useState(null)
 	const navigate = useNavigate()
 
-	// Вычисляем общую стоимость корзины
 	const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-	// Читаем промокод из localStorage и вычисляем скидку
 	const discountCode = localStorage.getItem('discountCode') || ''
 	const discountPercentage = discountCode.trim().toUpperCase() === 'SALE2025' ? 0.1 : 0
 	const finalPrice = totalPrice - totalPrice * discountPercentage
 
-	// Асинхронная функция отправки заказа
 	const handleCheckoutSubmit = async (formData) => {
-		// Формируем объект заказа
 		const order = {
 			...formData,
 			items: cartItems,
@@ -30,19 +27,12 @@ const CheckoutPage = ({ cartItems, clearCart }) => {
 				body: JSON.stringify(order),
 			})
 			console.log('Response от сервера:', response)
-
-			// Если response не является корректным объектом Response или имеет ошибочный статус
 			if (!response || !response.ok) {
 				throw new Error('Ошибка при оформлении заказа')
 			}
-
 			const savedOrder = await response.json()
 			console.log('Полученный заказ:', savedOrder)
-
-			// Если по каким-то причинам savedOrder.total отсутствует, используем finalPrice
-			const totalFromResponse = savedOrder.total !== undefined ? savedOrder.total : finalPrice
-
-			setOrderData({ ...savedOrder, total: totalFromResponse })
+			setOrderData(savedOrder)
 			clearCart()
 			localStorage.removeItem('discountCode')
 			navigate('/thank-you', { state: { orderId: savedOrder.id, total: savedOrder.total } })
@@ -53,8 +43,8 @@ const CheckoutPage = ({ cartItems, clearCart }) => {
 	}
 
 	return (
-		<div className="container mx-auto p-4">
-			<CheckoutForm cartItems={cartItems} finalPrice={finalPrice} onSubmit={handleCheckoutSubmit} />
+		<div className="container mx-auto p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+			<CheckoutForm finalPrice={finalPrice} onSubmit={handleCheckoutSubmit} />
 		</div>
 	)
 }

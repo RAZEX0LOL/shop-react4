@@ -1,9 +1,11 @@
+// src/components/Header.jsx
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
 	const [darkMode, setDarkMode] = useState(false)
 
+	// При монтировании загружаем сохранённое значение из localStorage
 	useEffect(() => {
 		const storedMode = localStorage.getItem('darkMode')
 		if (storedMode === 'true') {
@@ -15,40 +17,43 @@ const Header = () => {
 	}, [])
 
 	const toggleDarkMode = () => {
-		setDarkMode((prev) => {
-			const newMode = !prev
-			if (newMode) {
-				document.documentElement.classList.add('dark')
-			} else {
-				document.documentElement.classList.remove('dark')
-			}
-			localStorage.setItem('darkMode', newMode)
-			return newMode
-		})
+		const newMode = !darkMode
+		setDarkMode(newMode)
+		if (newMode) {
+			document.documentElement.classList.add('dark')
+		} else {
+			document.documentElement.classList.remove('dark')
+		}
+		localStorage.setItem('darkMode', newMode.toString())
+		console.log('Новый режим:', newMode, document.documentElement.classList)
 	}
 
 	return (
-		<header className='bg-white shadow-md'>
-			<div className='container mx-auto flex justify-between items-center p-4'>
-				<Link to={"/"} className='text-2xl font-bold text-gray-600 hover:text-gray-800'>
-					E-Commerce Shop
+		<header className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
+			<div className="container mx-auto flex justify-between items-center p-4">
+				<Link to="/" className="text-2xl font-bold text-gray-800 dark:text-white">
+					E-commerce shop
 				</Link>
-				<div className='flex items-center space-x-4'>
-					<Link to="/favorites" className='text-gray-800 dark:text-white'>
+				<div className="flex items-center space-x-4">
+					<Link to="/orders" className="text-gray-800 dark:text-white">
+						История покупок
+					</Link>
+					<Link to="/favorites" className="text-gray-800 dark:text-white">
 						Избранное
 					</Link>
-					<Link to="/cart" className='text-gray-800 dark:text-white'>
+					<Link to="/cart" className="text-gray-800 dark:text-white">
 						Корзина
 					</Link>
-					<Link to="/orders" className='text-gray-800 dark:text-white'>
-						История заказов
-					</Link>
-					<button onClick={toggleDarkMode} className='px-3 py-1 border rounded focus:outline-none '>
-						{darkMode ? 'Светлая тема' : 'Темная тема'}
+					<button
+						onClick={toggleDarkMode}
+						className="px-3 py-1 border rounded focus:outline-none"
+					>
+						{darkMode ? 'Светлая тема' : 'Тёмная тема'}
 					</button>
 				</div>
 			</div>
 		</header>
 	)
 }
+
 export default Header
