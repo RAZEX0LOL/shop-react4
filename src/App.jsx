@@ -44,12 +44,11 @@ export default function App() {
     setCartItems([])
   }
 
-
   return (
     <FavoritesProvider>
       <BrowserRouter>
         <Header />
-        <main className='min-h-screen'>
+        <main className="min-h-screen bg-white dark:bg-gray-800 transition-colors duration-300">
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} />} />
             <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />

@@ -14,7 +14,9 @@ const Home = ({ addToCart }) => {
 	const [filteredProducts, setFilteredProducts] = useState(productsData)
 
 	// Получаем уникальные категории (если поле category присутствует)
-	const categories = Array.from(new Set(productsData.map(product => product.category))).filter(Boolean)
+	const categories = Array.from(
+		new Set(productsData.map(product => product.category))
+	).filter(Boolean)
 
 	useEffect(() => {
 		let filtered = [...productsData]
@@ -55,35 +57,41 @@ const Home = ({ addToCart }) => {
 	}, [query, category, minPrice, maxPrice, sortOption])
 
 	return (
-		<div className="container mx-auto p-4">
+		<div className="container mx-auto p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
 			{/* Баннер */}
 			<Banner />
 
 			{/* Блок фильтров */}
-			<div className="bg-white p-6 rounded shadow-md mb-8">
-				<h2 className="text-2xl font-bold mb-4 text-center">Найдите свой товар</h2>
+			<div className="bg-white dark:bg-gray-700 p-6 rounded shadow-md mb-8 transition-colors duration-300">
+				<h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">
+					Найдите свой товар
+				</h2>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 					{/* Поисковое поле */}
 					<div>
-						<label className="block text-gray-700 mb-1" htmlFor="search">Поиск</label>
+						<label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="search">
+							Поиск
+						</label>
 						<input
 							id="search"
 							type="text"
 							placeholder="Название или описание..."
 							value={query}
 							onChange={e => setQuery(e.target.value)}
-							className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+							className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-200"
 						/>
 					</div>
 					{/* Фильтр по категории */}
 					{categories.length > 0 && (
 						<div>
-							<label className="block text-gray-700 mb-1" htmlFor="category">Категория</label>
+							<label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="category">
+								Категория
+							</label>
 							<select
 								id="category"
 								value={category}
 								onChange={e => setCategory(e.target.value)}
-								className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+								className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-200"
 							>
 								<option value="">Все категории</option>
 								{categories.map((cat, idx) => (
@@ -97,36 +105,42 @@ const Home = ({ addToCart }) => {
 					{/* Фильтрация по диапазону цен */}
 					<div className="flex space-x-2">
 						<div className="w-1/2">
-							<label className="block text-gray-700 mb-1" htmlFor="minPrice">От (₽)</label>
+							<label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="minPrice">
+								От (₽)
+							</label>
 							<input
 								id="minPrice"
 								type="number"
 								placeholder="0"
 								value={minPrice}
 								onChange={e => setMinPrice(e.target.value)}
-								className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+								className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-200"
 							/>
 						</div>
 						<div className="w-1/2">
-							<label className="block text-gray-700 mb-1" htmlFor="maxPrice">До (₽)</label>
+							<label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="maxPrice">
+								До (₽)
+							</label>
 							<input
 								id="maxPrice"
 								type="number"
 								placeholder="Макс"
 								value={maxPrice}
 								onChange={e => setMaxPrice(e.target.value)}
-								className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+								className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-200"
 							/>
 						</div>
 					</div>
 					{/* Сортировка */}
 					<div>
-						<label className="block text-gray-700 mb-1" htmlFor="sort">Сортировка</label>
+						<label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="sort">
+							Сортировка
+						</label>
 						<select
 							id="sort"
 							value={sortOption}
 							onChange={e => setSortOption(e.target.value)}
-							className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+							className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-200"
 						>
 							<option value="">Сортировать</option>
 							<option value="price-asc">Цена: по возрастанию</option>
@@ -138,7 +152,7 @@ const Home = ({ addToCart }) => {
 				</div>
 			</div>
 
-			<h1 className="text-3xl font-bold mb-6">Наши товары</h1>
+			<h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">Наши товары</h1>
 			<ProductList products={filteredProducts} addToCart={addToCart} />
 		</div>
 	)

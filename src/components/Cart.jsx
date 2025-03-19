@@ -1,4 +1,3 @@
-// src/components/Cart.jsx
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -27,19 +26,33 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 
 	return (
 		<div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg transition-all duration-300">
-			<h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">Ваша корзина</h2>
+			<h2 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">
+				Ваша корзина
+			</h2>
 			{cartItems.length === 0 ? (
-				<p className="text-center text-gray-500">Корзина пуста</p>
+				<p className="text-center text-gray-500 dark:text-gray-400">Корзина пуста</p>
 			) : (
 				<>
 					<div className="space-y-4">
 						{cartItems.map(item => (
-							<div key={item.id} className="flex flex-col md:flex-row items-center justify-between border-b pb-4 border-gray-200 dark:border-gray-700">
+							<div
+								key={item.id}
+								className="flex flex-col md:flex-row items-center justify-between border-b pb-4 border-gray-200 dark:border-gray-700"
+							>
 								<div className="flex items-center w-full md:w-1/2">
-									<img src={item.image} alt={item.title} className="w-20 h-20 object-cover rounded mr-4" />
+									<img
+										src={item.image}
+										alt={item.title}
+										className="w-20 h-20 object-cover rounded mr-4"
+										style={{ width: 200, height: 200 }}
+									/>
 									<div>
-										<h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{item.title}</h3>
-										<p className="text-sm text-gray-600 dark:text-gray-400">{item.price} ₽</p>
+										<h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+											{item.title}
+										</h3>
+										<p className="text-sm text-gray-600 dark:text-gray-400">
+											{item.price} ₽
+										</p>
 									</div>
 								</div>
 								<div className="flex items-center my-2 md:my-0">
@@ -50,7 +63,9 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 									>
 										–
 									</button>
-									<span className="px-4 border-t border-b border-gray-300 dark:border-gray-600">{item.quantity}</span>
+									<span className="px-4 border-t border-b border-gray-300 dark:border-gray-600">
+										{item.quantity}
+									</span>
 									<button
 										onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
 										className="px-3 py-1 border rounded-r transition-colors border-gray-300 dark:border-gray-600"
@@ -61,7 +76,9 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 								<div className="text-right">
 									<button
 										onClick={() => {
-											if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
+											if (
+												window.confirm('Вы уверены, что хотите удалить этот товар?')
+											) {
 												onRemoveItem(item.id)
 											}
 										}}
@@ -78,7 +95,7 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 							Общая стоимость: {totalPrice.toFixed(2)} ₽
 						</p>
 						{appliedDiscount > 0 && (
-							<p className="text-xl font-semibold text-green-600">
+							<p className="text-xl font-semibold text-green-600 dark:text-green-400">
 								Со скидкой: {discountedPrice.toFixed(2)} ₽
 							</p>
 						)}
@@ -94,7 +111,7 @@ const Cart = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 								placeholder="Введите промокод"
 								value={discountCode}
 								onChange={(e) => setDiscountCode(e.target.value)}
-								className="flex-1 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+								className="flex-1 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
 							/>
 							<button
 								onClick={handleApplyDiscount}

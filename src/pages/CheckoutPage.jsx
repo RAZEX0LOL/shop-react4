@@ -1,4 +1,3 @@
-// src/pages/CheckoutPage.jsx
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CheckoutForm from '../components/CheckoutForm'
@@ -43,7 +42,7 @@ const CheckoutPage = ({ cartItems, clearCart }) => {
 	}
 
 	return (
-		<div className="container mx-auto p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+		<div className="container mx-auto p-4 bg-white dark:bg-gray-800 min-h-screen transition-colors duration-300">
 			<CheckoutForm finalPrice={finalPrice} onSubmit={handleCheckoutSubmit} />
 		</div>
 	)

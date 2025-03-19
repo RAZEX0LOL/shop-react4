@@ -13,7 +13,7 @@ const ProductCard = ({ product, addToCart }) => {
 			{/* Кнопка избранного, расположенная в верхнем правом углу */}
 			<button
 				onClick={() => toggleFavorite(product)}
-				className="absolute top-2 right-2 focus:outline-none"
+				className="absolute top-2 right-2 focus:outline-none transition-colors duration-300"
 			>
 				{isFavorite ? (
 					// Если товар избранный – рисуем заполненное сердце
@@ -29,13 +29,17 @@ const ProductCard = ({ product, addToCart }) => {
 					// Если не избранный – рисуем контур сердца
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						className="h-6 w-6 text-gray-400"
+						className="h-6 w-6 text-gray-400 dark:text-gray-300"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
 					>
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-							d="M5.121 19.364l6.364-6.364 6.364 6.364" />
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M5.121 19.364l6.364-6.364 6.364 6.364"
+						/>
 					</svg>
 				)}
 			</button>
@@ -45,13 +49,21 @@ const ProductCard = ({ product, addToCart }) => {
 				alt={product.title}
 				className="w-full h-48 object-cover object-center rounded mb-4"
 			/>
-			<h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">{product.title}</h3>
+			<h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
+				{product.title}
+			</h3>
 			<p className="text-gray-700 dark:text-gray-300 mb-4">{product.price} ₽</p>
 			<div className="mt-4 flex gap-4">
-				<Link to={`/product/${product.id}`} className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 content-center'>
+				<Link
+					to={`/product/${product.id}`}
+					className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center"
+				>
 					Подробнее
 				</Link>
-				<button onClick={() => addToCart(product)} className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'>
+				<button
+					onClick={() => addToCart(product)}
+					className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-300"
+				>
 					Добавить в корзину
 				</button>
 			</div>

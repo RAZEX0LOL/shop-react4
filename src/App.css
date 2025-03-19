@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 .text-white {
   color: var(--color-white) !important;
 }
@@ -14,6 +16,11 @@
 
 .btn-primary {
   @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+/* Пример темной версии для кнопки .btn-primary */
+.dark .btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700;
 }
 
 .error-message {

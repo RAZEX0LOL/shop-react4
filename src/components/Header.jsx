@@ -46,7 +46,7 @@ const Header = () => {
 					</Link>
 					<button
 						onClick={toggleDarkMode}
-						className="px-3 py-1 border rounded focus:outline-none"
+						className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors"
 					>
 						{darkMode ? 'Светлая тема' : 'Тёмная тема'}
 					</button>
